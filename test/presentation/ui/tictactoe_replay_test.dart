@@ -3,12 +3,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:tictactoe/model/game_result.dart';
-import 'package:tictactoe/model/tictactoe_game.dart';
 import 'package:tictactoe/presentation/notifier/tictactoe_game_notifier.dart';
 import 'package:tictactoe/presentation/notifier/tictactoe_game_state.dart';
 import 'package:tictactoe/presentation/ui/tictactoe_replay.dart';
 
-class MockTictactoeGame extends Mock implements TictactoeGame {}
+import '../../mock.dart';
 
 void main() {
   final drawGame = MockTictactoeGame();
