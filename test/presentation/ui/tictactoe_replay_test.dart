@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:tictactoe/model/game_result.dart';
@@ -8,6 +6,7 @@ import 'package:tictactoe/presentation/notifier/tictactoe_game_state.dart';
 import 'package:tictactoe/presentation/ui/tictactoe_replay.dart';
 
 import '../../mock.dart';
+import '../../util.dart';
 
 void main() {
   final drawGame = MockTictactoeGame();
@@ -18,33 +17,17 @@ void main() {
   setUp(() {
     when(() => drawGame.result).thenReturn(const GameResult.draw());
     when(() => onGoingGame.result).thenReturn(const GameResult.ongoing());
-    when(() => crossWinsGame.result).thenReturn(
-      const GameResult.crossWins(
-        winningPositions: [],
-      ),
-    );
-    when(() => noughtWinsGame.result).thenReturn(
-      const GameResult.noughtWins(
-        winningPositions: [],
-      ),
-    );
+    when(() => crossWinsGame.result).thenReturn(const GameResult.crossWins(winningPositions: []));
+    when(() => noughtWinsGame.result).thenReturn(const GameResult.noughtWins(winningPositions: []));
   });
   group('TictactoeReplay Widget Tests', () {
     testWidgets('displays New Game button based on gameResult', (WidgetTester tester) async {
       final tictactoeGameNotifier = TictactoeGameNotifier();
 
       await tester.pumpWidget(
-        ProviderScope(
-          overrides: [
-            tictactoeGameProvider.overrideWith(
-              () => tictactoeGameNotifier,
-            ),
-          ],
-          child: const MaterialApp(
-            home: Scaffold(
-              body: TictactoeReplay(),
-            ),
-          ),
+        buildTestableWidget(
+          const TictactoeReplay(),
+          overrides: [tictactoeGameProvider.overrideWith(() => tictactoeGameNotifier)],
         ),
       );
 

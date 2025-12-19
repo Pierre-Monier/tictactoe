@@ -1,10 +1,10 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:tictactoe/model/score.dart';
 import 'package:tictactoe/presentation/notifier/tictactoe_game_notifier.dart';
 import 'package:tictactoe/presentation/notifier/tictactoe_game_state.dart';
 import 'package:tictactoe/presentation/ui/tictactoe_score.dart';
+
+import '../../util.dart';
 
 void main() {
   group('TictactoeScore Widget Tests', () {
@@ -12,17 +12,9 @@ void main() {
       final tictactoeGameNotifier = TictactoeGameNotifier();
 
       await tester.pumpWidget(
-        ProviderScope(
-          overrides: [
-            tictactoeGameProvider.overrideWith(
-              () => tictactoeGameNotifier,
-            ),
-          ],
-          child: const MaterialApp(
-            home: Scaffold(
-              body: TictactoeScore(),
-            ),
-          ),
+        buildTestableWidget(
+          const TictactoeScore(),
+          overrides: [tictactoeGameProvider.overrideWith(() => tictactoeGameNotifier)],
         ),
       );
 
