@@ -26,10 +26,24 @@ Le projet suit une architecture **Clean Architecture** en couches : modèle mét
 
 ### Ce qui n'a pas été Traité par Manque de Temps
 - Persistence des données (SQLite/Hive) : Score stocké uniquement en mémoire
-- Intelligence Artificielle (IA) : Pas d'implémentation d'adversaire automatique
 - Animations avancées : Transitions basiques uniquement
 - Modes de jeu multiples (modes rapides, time-attack, etc.)
 - Internationalization (i18n) : Interface en français uniquement
+
+## Configuration
+
+### Gemini API Key
+L'application utilise l'API Google Gemini pour l'intelligence artificielle du jeu. Vous devez fournir votre clé API Gemini via `--dart-define` lors du lancement ou de la compilation de l'application.
+
+#### Obtenir votre clé Gemini
+1. Accédez à [Google AI Studio](https://aistudio.google.com/apikey)
+2. Créez une nouvelle clé API
+3. Utilisez cette clé pour lancer l'application
+
+#### Lancer l'application avec la clé Gemini
+```bash
+flutter run --dart-define=GEMINI_KEY=your_gemini_api_key
+```
 
 ### Améliorations Possibles avec Plus de Temps
 - Ajouter une base de données locale pour persister les scores entre sessions
