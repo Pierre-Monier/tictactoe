@@ -47,6 +47,17 @@ abstract class TictactoeGame with _$TictactoeGame {
     return TictactoeGame(board: updatedBoard);
   }
 
+  bool validateMove<T extends Cell>(TictactoeGame newGame) {
+    final boardSet = board.toSet();
+    final newBoardSet = newGame.board.toSet();
+
+    final difference = newBoardSet.difference(boardSet).toList();
+
+    return difference.length == 1 &&
+        difference.first is T &&
+        board.firstWhere((cell) => cell.position == difference.first.position) is EmptyCell;
+  }
+
   GameResult get result {
     if (getWinningPositions<CrossCell>() case final nonNullPositions?) {
       return GameResult.crossWins(winningPositions: nonNullPositions);

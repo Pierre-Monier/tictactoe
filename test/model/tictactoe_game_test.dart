@@ -162,5 +162,52 @@ void main() {
         expect(game.result, equals(const GameResult.ongoing()));
       });
     });
+
+    group('validateMove', () {
+      test('should return false when newGame is the same as current game', () {
+        const game = TictactoeGame();
+
+        final isValid = game.validateMove<CrossCell>(game);
+
+        expect(isValid, isFalse);
+      });
+
+      test('should return false when new game adds more than one change', () {
+        const game = TictactoeGame();
+        final newGame = game.play(const Cell.cross(Position(0, 0))).play(const Cell.cross(Position(1, 1)));
+
+        final isValid = game.validateMove<CrossCell>(newGame);
+
+        expect(isValid, isFalse);
+      });
+
+      test('should return false when the updated cell is not of type T', () {
+        const game = TictactoeGame();
+        final newGame = game.play(const Cell.nought(Position(0, 0)));
+
+        final isValid = game.validateMove<CrossCell>(newGame);
+
+        expect(isValid, isFalse);
+      });
+
+      test('should return false when the updated cell replaces a non-empty cell', () {
+        const game = TictactoeGame();
+        final gameWithCross = game.play(const Cell.cross(Position(0, 0)));
+        final gameWithNought = gameWithCross.play(const Cell.nought(Position(0, 0)));
+
+        final isValid = gameWithCross.validateMove<CrossCell>(gameWithNought);
+
+        expect(isValid, isFalse);
+      });
+
+      test('should return true when valid move is made', () {
+        const game = TictactoeGame();
+        final newGame = game.play(const Cell.cross(Position(0, 0)));
+
+        final isValid = game.validateMove<CrossCell>(newGame);
+
+        expect(isValid, isTrue);
+      });
+    });
   });
 }
