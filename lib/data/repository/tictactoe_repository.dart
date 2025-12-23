@@ -2,6 +2,8 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:tictactoe/data/datasource/llm_datasource.dart';
 import 'package:tictactoe/model/tictactoe_game.dart';
 
+part 'tictactoe_repository.g.dart';
+
 class TictactoeRepository {
   const TictactoeRepository(this.llmDatasource);
   final LLMDatasource llmDatasource;

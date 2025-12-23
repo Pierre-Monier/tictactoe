@@ -1,7 +1,10 @@
 import 'package:result_type/result_type.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:tictactoe/data/repository/tictactoe_repository.dart';
 import 'package:tictactoe/model/cell.dart';
 import 'package:tictactoe/model/tictactoe_game.dart';
+
+part 'ia_play_usecase.g.dart';
 
 class IaPlayUsecase {
   const IaPlayUsecase(this.repository);
@@ -19,4 +22,9 @@ class IaPlayUsecase {
 
     return Failure(Exception('Failed to generate valid move after $maxAttempts attempts'));
   }
+}
+
+@riverpod
+IaPlayUsecase iaPlayUsecase(Ref ref) {
+  return IaPlayUsecase(ref.read(tictactoeRepositoryProvider));
 }

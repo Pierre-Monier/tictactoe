@@ -1,16 +1,31 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mocktail/mocktail.dart';
+import 'package:result_type/result_type.dart';
 import 'package:tictactoe/model/cell.dart';
 import 'package:tictactoe/model/player.dart';
 import 'package:tictactoe/model/position.dart';
+import 'package:tictactoe/model/tictactoe_game.dart';
 import 'package:tictactoe/presentation/notifier/tictactoe_game_notifier.dart';
+import 'package:tictactoe/usecase/ia_play_usecase.dart';
+
+import '../../mock.dart';
 
 void main() {
   group('TictactoeGameNotifier', () {
     late ProviderContainer container;
+    final mockUsecase = MockIaPlayUsecase();
+
+    setUpAll(() {
+      registerFallbackValue(const TictactoeGame());
+    });
 
     setUp(() {
-      container = ProviderContainer();
+      container = ProviderContainer(
+        overrides: [
+          iaPlayUsecaseProvider.overrideWithValue(mockUsecase),
+        ],
+      );
     });
 
     tearDown(() {
@@ -47,6 +62,37 @@ void main() {
 
         notifier.playAt(const Position(1, 1));
         expect(container.read(tictactoeGameProvider).currentPlayer, equals(Player.cross));
+      });
+    });
+
+    group('iaPlay', () {
+      test('should update game state when usecase returns Success', () async {
+        final newGame = MockTictactoeGame();
+
+        when(() => mockUsecase(any())).thenAnswer((_) async => Success(newGame));
+
+        final container = ProviderContainer(
+          overrides: [
+            iaPlayUsecaseProvider.overrideWithValue(mockUsecase),
+          ],
+        );
+
+        final notifier = container.read(tictactoeGameProvider.notifier);
+        await notifier.iaPlay();
+
+        final state = container.read(tictactoeGameProvider);
+        expect(state.game, equals(newGame));
+        expect(state.haveIaPlayIssue, isFalse);
+      });
+
+      test('should set haveIaPlayIssue when usecase returns Failure', () async {
+        when(() => mockUsecase(any())).thenAnswer((_) async => Failure(Exception('Failed to play')));
+
+        final notifier = container.read(tictactoeGameProvider.notifier);
+        await notifier.iaPlay();
+
+        final state = container.read(tictactoeGameProvider);
+        expect(state.haveIaPlayIssue, isTrue);
       });
     });
   });
