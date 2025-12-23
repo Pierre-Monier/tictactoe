@@ -7,7 +7,8 @@ import 'package:tictactoe/model/position.dart';
 part 'tictactoe_game.freezed.dart';
 part 'tictactoe_game.g.dart';
 
-@freezed
+// JsonSerializable is sadly not smart enough to serialize List of serializable objects
+@Freezed(toJson: false)
 abstract class TictactoeGame with _$TictactoeGame {
   const factory TictactoeGame({@Default(TictactoeGame.startingBoard) List<Cell> board}) = _TictactoeGame;
   const TictactoeGame._();
@@ -38,6 +39,8 @@ abstract class TictactoeGame with _$TictactoeGame {
     [Position(0, 0), Position(1, 1), Position(2, 2)],
     [Position(0, 2), Position(1, 1), Position(2, 0)],
   ];
+
+  Map<String, dynamic> toJson() => <String, dynamic>{'board': board.map((cell) => cell.toJson()).toList()};
 
   TictactoeGame play(Cell updatedCell) {
     final updatedBoard = board
