@@ -11,5 +11,5 @@ abstract interface class LLMDatasource {
 
 @riverpod
 LLMDatasource llmDatasource(Ref ref) {
-  return ref.read(geminiDatasourceProvider(apiKey: 'todo'));
+  return ref.read(geminiDatasourceProvider(apiKey: const String.fromEnvironment('API_KEY')));
 }
