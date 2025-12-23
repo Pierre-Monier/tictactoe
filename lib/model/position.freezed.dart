@@ -11,6 +11,7 @@ part of 'position.dart';
 
 // dart format off
 T _$identity<T>(T value) => value;
+
 /// @nodoc
 mixin _$Position {
 
@@ -21,6 +22,8 @@ mixin _$Position {
 @pragma('vm:prefer-inline')
 $PositionCopyWith<Position> get copyWith => _$PositionCopyWithImpl<Position>(this as Position, _$identity);
 
+  /// Serializes this Position to a JSON map.
+  Map<String, dynamic> toJson();
 
 
 @override
@@ -28,7 +31,7 @@ bool operator ==(Object other) {
   return identical(this, other) || (other.runtimeType == runtimeType&&other is Position&&(identical(other.x, x) || other.x == x)&&(identical(other.y, y) || other.y == y));
 }
 
-
+@JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode => Object.hash(runtimeType,x,y);
 
@@ -198,11 +201,11 @@ return $default(_that.x,_that.y);case _:
 }
 
 /// @nodoc
-
+@JsonSerializable()
 
 class _Position implements Position {
   const _Position(this.x, this.y);
-  
+  factory _Position.fromJson(Map<String, dynamic> json) => _$PositionFromJson(json);
 
 @override final  int x;
 @override final  int y;
@@ -213,14 +216,17 @@ class _Position implements Position {
 @pragma('vm:prefer-inline')
 _$PositionCopyWith<_Position> get copyWith => __$PositionCopyWithImpl<_Position>(this, _$identity);
 
-
+@override
+Map<String, dynamic> toJson() {
+  return _$PositionToJson(this, );
+}
 
 @override
 bool operator ==(Object other) {
   return identical(this, other) || (other.runtimeType == runtimeType&&other is _Position&&(identical(other.x, x) || other.x == x)&&(identical(other.y, y) || other.y == y));
 }
 
-
+@JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode => Object.hash(runtimeType,x,y);
 

@@ -5,13 +5,14 @@ import 'package:tictactoe/model/game_result.dart';
 import 'package:tictactoe/model/position.dart';
 
 part 'tictactoe_game.freezed.dart';
+part 'tictactoe_game.g.dart';
 
 @freezed
-class TictactoeGame with _$TictactoeGame {
-  const TictactoeGame({this.board = startingBoard});
+abstract class TictactoeGame with _$TictactoeGame {
+  const factory TictactoeGame({@Default(TictactoeGame.startingBoard) List<Cell> board}) = _TictactoeGame;
+  const TictactoeGame._();
 
-  @override
-  final List<Cell> board;
+  factory TictactoeGame.fromJson(Map<String, dynamic> json) => _$TictactoeGameFromJson(json);
 
   @visibleForTesting
   static const List<Cell> startingBoard = [

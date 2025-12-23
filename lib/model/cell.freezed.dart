@@ -11,6 +11,34 @@ part of 'cell.dart';
 
 // dart format off
 T _$identity<T>(T value) => value;
+Cell _$CellFromJson(
+  Map<String, dynamic> json
+) {
+        switch (json['type']) {
+                  case 'empty':
+          return EmptyCell.fromJson(
+            json
+          );
+                case 'cross':
+          return CrossCell.fromJson(
+            json
+          );
+                case 'nought':
+          return NoughtCell.fromJson(
+            json
+          );
+        
+          default:
+            throw CheckedFromJsonException(
+  json,
+  'type',
+  'Cell',
+  'Invalid union type "${json['type']}"!'
+);
+        }
+      
+}
+
 /// @nodoc
 mixin _$Cell {
 
@@ -21,6 +49,8 @@ mixin _$Cell {
 @pragma('vm:prefer-inline')
 $CellCopyWith<Cell> get copyWith => _$CellCopyWithImpl<Cell>(this as Cell, _$identity);
 
+  /// Serializes this Cell to a JSON map.
+  Map<String, dynamic> toJson();
 
 
 @override
@@ -28,7 +58,7 @@ bool operator ==(Object other) {
   return identical(this, other) || (other.runtimeType == runtimeType&&other is Cell&&(identical(other.position, position) || other.position == position));
 }
 
-
+@JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode => Object.hash(runtimeType,position);
 
@@ -218,13 +248,17 @@ return nought(_that.position);case _:
 }
 
 /// @nodoc
-
+@JsonSerializable()
 
 class EmptyCell implements Cell {
-  const EmptyCell(this.position);
-  
+  const EmptyCell(this.position, {final  String? $type}): $type = $type ?? 'empty';
+  factory EmptyCell.fromJson(Map<String, dynamic> json) => _$EmptyCellFromJson(json);
 
 @override final  Position position;
+
+@JsonKey(name: 'type')
+final String $type;
+
 
 /// Create a copy of Cell
 /// with the given fields replaced by the non-null parameter values.
@@ -232,14 +266,17 @@ class EmptyCell implements Cell {
 @pragma('vm:prefer-inline')
 $EmptyCellCopyWith<EmptyCell> get copyWith => _$EmptyCellCopyWithImpl<EmptyCell>(this, _$identity);
 
-
+@override
+Map<String, dynamic> toJson() {
+  return _$EmptyCellToJson(this, );
+}
 
 @override
 bool operator ==(Object other) {
   return identical(this, other) || (other.runtimeType == runtimeType&&other is EmptyCell&&(identical(other.position, position) || other.position == position));
 }
 
-
+@JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode => Object.hash(runtimeType,position);
 
@@ -293,13 +330,17 @@ $PositionCopyWith<$Res> get position {
 }
 
 /// @nodoc
-
+@JsonSerializable()
 
 class CrossCell implements Cell {
-  const CrossCell(this.position);
-  
+  const CrossCell(this.position, {final  String? $type}): $type = $type ?? 'cross';
+  factory CrossCell.fromJson(Map<String, dynamic> json) => _$CrossCellFromJson(json);
 
 @override final  Position position;
+
+@JsonKey(name: 'type')
+final String $type;
+
 
 /// Create a copy of Cell
 /// with the given fields replaced by the non-null parameter values.
@@ -307,14 +348,17 @@ class CrossCell implements Cell {
 @pragma('vm:prefer-inline')
 $CrossCellCopyWith<CrossCell> get copyWith => _$CrossCellCopyWithImpl<CrossCell>(this, _$identity);
 
-
+@override
+Map<String, dynamic> toJson() {
+  return _$CrossCellToJson(this, );
+}
 
 @override
 bool operator ==(Object other) {
   return identical(this, other) || (other.runtimeType == runtimeType&&other is CrossCell&&(identical(other.position, position) || other.position == position));
 }
 
-
+@JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode => Object.hash(runtimeType,position);
 
@@ -368,13 +412,17 @@ $PositionCopyWith<$Res> get position {
 }
 
 /// @nodoc
-
+@JsonSerializable()
 
 class NoughtCell implements Cell {
-  const NoughtCell(this.position);
-  
+  const NoughtCell(this.position, {final  String? $type}): $type = $type ?? 'nought';
+  factory NoughtCell.fromJson(Map<String, dynamic> json) => _$NoughtCellFromJson(json);
 
 @override final  Position position;
+
+@JsonKey(name: 'type')
+final String $type;
+
 
 /// Create a copy of Cell
 /// with the given fields replaced by the non-null parameter values.
@@ -382,14 +430,17 @@ class NoughtCell implements Cell {
 @pragma('vm:prefer-inline')
 $NoughtCellCopyWith<NoughtCell> get copyWith => _$NoughtCellCopyWithImpl<NoughtCell>(this, _$identity);
 
-
+@override
+Map<String, dynamic> toJson() {
+  return _$NoughtCellToJson(this, );
+}
 
 @override
 bool operator ==(Object other) {
   return identical(this, other) || (other.runtimeType == runtimeType&&other is NoughtCell&&(identical(other.position, position) || other.position == position));
 }
 
-
+@JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode => Object.hash(runtimeType,position);
 
