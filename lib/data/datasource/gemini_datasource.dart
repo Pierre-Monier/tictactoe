@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:logger/logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:tictactoe/data/llm_datasource.dart';
+import 'package:tictactoe/data/datasource/llm_datasource.dart';
 
 part 'gemini_datasource.g.dart';
 

@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:tictactoe/data/gemini_datasource.dart';
+import 'package:tictactoe/data/datasource/gemini_datasource.dart';
 
-import '../mock.dart';
+import '../../mock.dart';
 
 void main() {
   group('GeminiDatasource', () {
