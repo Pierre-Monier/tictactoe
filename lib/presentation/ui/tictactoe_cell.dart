@@ -31,7 +31,7 @@ class TictactoeCell extends ConsumerWidget {
     final noughtColor = switch (result) {
       Ongoing() => colors.nought,
       Draw() => colors.onDraw,
-      CrossWins() => colors.cross,
+      CrossWins() => colors.nought,
       NoughtWins() => colors.onNought,
     };
 
