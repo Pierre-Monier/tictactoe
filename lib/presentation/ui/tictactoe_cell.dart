@@ -37,7 +37,7 @@ class TictactoeCell extends ConsumerWidget {
 
     final isWinningCell = result.isCellAWinningCell(cell);
 
-    final cellColor = isWinningCell ? getWinningCellColor(colors) : colors.surfaceDim;
+    final cellColor = isWinningCell ? getWinningCellColor(colors) : colors.outlineVariant;
 
     return InkWell(
       borderRadius: BorderRadius.circular(16),

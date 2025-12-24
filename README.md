@@ -23,12 +23,15 @@ Le projet suit une architecture **Clean Architecture** en couches : modèle mét
 ✓ Réinitialisation de jeu (replay)
 ✓ Device Preview pour test multi-écrans
 ✓ Suite de tests unitaires pour la logique métier
+✓ **AI Feature avec Google Gemini** : Joueur IA alimenté par l'API Gemini pour jouer contre l'utilisateur
+✓ **Thème clair/sombre** : Support automatique des modes clair et sombre basé sur le thème du système d'exploitation
 
 ### Ce qui n'a pas été Traité par Manque de Temps
 - Persistence des données (SQLite/Hive) : Score stocké uniquement en mémoire
 - Animations avancées : Transitions basiques uniquement
 - Modes de jeu multiples (modes rapides, time-attack, etc.)
 - Internationalization (i18n) : Interface en français uniquement
+- Customisation du thème (couleurs, polices) : Utilise les thèmes Material par défaut
 
 ## Configuration
 
@@ -41,13 +44,23 @@ L'application utilise l'API Google Gemini pour l'intelligence artificielle du je
 3. Utilisez cette clé pour lancer l'application
 
 #### Lancer l'application avec la clé Gemini
+
+Pour lancer l'application avec votre clé Gemini, utilisez le flag `--dart-define` :
+
+**Pour le mode debug :**
 ```bash
 flutter run --dart-define=GEMINI_KEY=your_gemini_api_key
 ```
 
+**Pour compiler une release :**
+```bash
+flutter build apk --dart-define=GEMINI_KEY=your_gemini_api_key
+```
+
+Remplacez `your_gemini_api_key` par votre clé API Gemini réelle.
+
 ### Améliorations Possibles avec Plus de Temps
 - Ajouter une base de données locale pour persister les scores entre sessions
-- Implémenter un adversaire IA avec algorithme Minimax
 - Ajouter des animations de transition et feedback haptic
 - Support multi-langue (anglais, espagnol, etc.)
 - Thème sombre/clair avec preferences utilisateur

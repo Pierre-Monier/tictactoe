@@ -38,7 +38,7 @@ class TictactoeAlert extends ConsumerWidget {
               style: baseTextStyle,
             ),
             if (gameMode == GameMode.humanVsAi && currentPlayer.isAi) ...[
-              const WidgetSpan(child: DotAnimation()),
+              WidgetSpan(child: DotAnimation(dotColor: baseTextStyle?.color)),
             ],
           ],
         ),

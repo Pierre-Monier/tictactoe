@@ -4,17 +4,19 @@ import 'package:flutter/material.dart';
 
 class DotAnimation extends StatefulWidget {
   const DotAnimation({
+    Color? dotColor = Colors.black,
     super.key,
     this.numberOfDots = 3,
     this.dotHeight = 8,
     this.animationDuration = const Duration(milliseconds: 400),
     this.delayBetweenDots = const Duration(milliseconds: 200),
-  });
+  }) : color = dotColor ?? Colors.black;
 
   final int numberOfDots;
   final double dotHeight;
   final Duration animationDuration;
   final Duration delayBetweenDots;
+  final Color color;
 
   @override
   State<DotAnimation> createState() => _DotAnimationState();
@@ -83,8 +85,8 @@ class _DotAnimationState extends State<DotAnimation> with TickerProviderStateMix
                   child: Container(
                     width: 8,
                     height: 8,
-                    decoration: const BoxDecoration(
-                      color: Colors.black,
+                    decoration: BoxDecoration(
+                      color: widget.color,
                       shape: BoxShape.circle,
                     ),
                   ),
