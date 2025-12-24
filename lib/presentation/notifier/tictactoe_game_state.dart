@@ -12,7 +12,7 @@ abstract class TictactoeGameState with _$TictactoeGameState {
     @Default(Score()) Score score,
     @Default(Player.firstPlayer) Player currentPlayer,
     @Default(TictactoeGame()) TictactoeGame game,
-    @Default(GameMode.humanVsIa) GameMode gameMode,
+    @Default(GameMode.humanVsHuman) GameMode gameMode,
     @Default(false) bool haveIaPlayIssue,
   }) = _TictactoeGameState;
 }

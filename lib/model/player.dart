@@ -12,5 +12,9 @@ enum Player {
     }
   }
 
+  bool get isAi {
+    return this == Player.nought;
+  }
+
   static const Player firstPlayer = Player.cross;
 }
