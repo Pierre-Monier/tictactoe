@@ -1,6 +1,7 @@
 import 'package:result_type/result_type.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:tictactoe/model/cell.dart';
+import 'package:tictactoe/model/game_mode.dart';
 import 'package:tictactoe/model/player.dart';
 import 'package:tictactoe/model/position.dart';
 import 'package:tictactoe/model/tictactoe_game.dart';
@@ -47,5 +48,9 @@ class TictactoeGameNotifier extends _$TictactoeGameNotifier {
 
   void replay() {
     state = state.copyWith(game: const TictactoeGame(), currentPlayer: Player.firstPlayer, haveIaPlayIssue: false);
+  }
+
+  void setGameMode(GameMode gameMode) {
+    state = TictactoeGameState(gameMode: gameMode);
   }
 }

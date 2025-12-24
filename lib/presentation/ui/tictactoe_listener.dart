@@ -22,7 +22,7 @@ class TictactoeListener extends ConsumerWidget {
       ..listen(
         tictactoeGameProvider.select(
           (state) =>
-              state.gameMode == GameMode.humanVsIa &&
+              state.gameMode == GameMode.humanVsAi &&
               state.currentPlayer == Player.nought &&
               state.game.result is Ongoing,
         ),
