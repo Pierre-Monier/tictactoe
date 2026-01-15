@@ -16,6 +16,7 @@ class GeminiDatasource implements LLMDatasource {
   Future<Map<String, dynamic>> noughtPlay(Map<String, dynamic> currentGame) async {
     try {
       final candidates = await gemini.prompt(
+        model: 'gemini-1.5-flash-8b',
         parts: [
           Part.text('''
   You are playing Tic-Tac-Toe as the Nought player (O). You will receive the current game state as JSON and must return the updated game state after making your move.                            
@@ -69,5 +70,5 @@ class GeminiDatasource implements LLMDatasource {
 
 @riverpod
 GeminiDatasource geminiDatasource(Ref ref, {required String apiKey}) {
-  return GeminiDatasource(Gemini.init(apiKey: apiKey));
+  return GeminiDatasource(Gemini.init(apiKey: apiKey, headers: {'Retry-After': '20'}));
 }
