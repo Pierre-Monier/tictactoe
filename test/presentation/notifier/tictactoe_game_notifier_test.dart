@@ -3,6 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:result_type/result_type.dart';
 import 'package:tictactoe/model/cell.dart';
+import 'package:tictactoe/model/game_result.dart';
 import 'package:tictactoe/model/player.dart';
 import 'package:tictactoe/model/position.dart';
 import 'package:tictactoe/model/tictactoe_game.dart';
@@ -70,6 +71,7 @@ void main() {
         final newGame = MockTictactoeGame();
 
         when(() => mockUsecase(any())).thenAnswer((_) async => Success(newGame));
+        when(() => newGame.result).thenReturn(const GameResult.ongoing());
 
         final container = ProviderContainer(
           overrides: [

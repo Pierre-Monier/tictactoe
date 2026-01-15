@@ -12,7 +12,10 @@ void main() {
       final currentGame = {'test': 'data'};
 
       when(
-        () => mockGemini.prompt(parts: any(named: 'parts')),
+        () => mockGemini.prompt(
+          model: any(named: 'model'),
+          parts: any(named: 'parts'),
+        ),
       ).thenAnswer((_) async => null);
 
       final result = await geminiDatasource.noughtPlay(currentGame);
@@ -26,7 +29,10 @@ void main() {
       final currentGame = {'test': 'data'};
 
       when(
-        () => mockGemini.prompt(parts: any(named: 'parts')),
+        () => mockGemini.prompt(
+          model: any(named: 'model'),
+          parts: any(named: 'parts'),
+        ),
       ).thenThrow(Exception('API Error'));
 
       final result = await geminiDatasource.noughtPlay(currentGame);
@@ -48,7 +54,10 @@ void main() {
       when(() => mockContent.parts).thenReturn([mockPart]);
       when(() => mockPart.text).thenReturn(jsonString);
       when(
-        () => mockGemini.prompt(parts: any(named: 'parts')),
+        () => mockGemini.prompt(
+          model: any(named: 'model'),
+          parts: any(named: 'parts'),
+        ),
       ).thenAnswer((_) async => mockCandidates);
 
       final result = await geminiDatasource.noughtPlay(currentGame);
